@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 class Navbar extends Component {
   constructor(props) {
@@ -23,6 +24,7 @@ class Navbar extends Component {
     this.setState({ menuIconClicked: false });
   };
   render() {
+    const { isLoggedIn } = this.props;
     return (
       <nav className="navbar-container unselectable">
         <div className="navbar-logo">
@@ -43,55 +45,82 @@ class Navbar extends Component {
             this.state.menuIconClicked ? "navbar-menu active" : "navbar-menu"
           }
         >
-          <li>
-            <Link
-              className="navbar-links"
-              to="/student"
-              onClick={this.handleButtonClick}
-            >
-              Students
-            </Link>
-          </li>
-          <li>
-            <Link
-              className="navbar-links"
-              to="/add-product"
-              onClick={this.handleButtonClick}
-            >
-              Company
-            </Link>
-          </li>
-          <li>
-            <Link
-              className="navbar-links"
-              to="/add-product"
-              onClick={this.handleButtonClick}
-            >
-              Interview
-            </Link>
-          </li>
-          <li>
-            <Link
-              className="navbar-links"
-              to="/add-product"
-              onClick={this.handleButtonClick}
-            >
-              Sign In
-            </Link>
-          </li>
-          <li>
-            <Link
-              className="navbar-links"
-              to="/add-product"
-              onClick={this.handleButtonClick}
-            >
-              Sign Up
-            </Link>
-          </li>
+          {isLoggedIn && (
+            <li>
+              <Link
+                className="navbar-links"
+                to="/student"
+                onClick={this.handleButtonClick}
+              >
+                Students
+              </Link>
+            </li>
+          )}
+          {isLoggedIn && (
+            <li>
+              <Link
+                className="navbar-links"
+                to="/company"
+                onClick={this.handleButtonClick}
+              >
+                Company
+              </Link>
+            </li>
+          )}
+          {isLoggedIn && (
+            <li>
+              <Link
+                className="navbar-links"
+                to="/interview"
+                onClick={this.handleButtonClick}
+              >
+                Interview
+              </Link>
+            </li>
+          )}
+          {!isLoggedIn && (
+            <li>
+              <Link
+                className="navbar-links"
+                to="/sign-in"
+                onClick={this.handleButtonClick}
+              >
+                Sign In
+              </Link>
+            </li>
+          )}
+          {!isLoggedIn && (
+            <li>
+              <Link
+                className="navbar-links"
+                to="/sign-up"
+                onClick={this.handleButtonClick}
+              >
+                Sign Up
+              </Link>
+            </li>
+          )}
+          {isLoggedIn && (
+            <li>
+              <Link
+                className="navbar-links"
+                to="/"
+                onClick={this.handleButtonClick}
+              >
+                Sign Out
+              </Link>
+            </li>
+          )}
         </ul>
       </nav>
     );
   }
 }
 
-export default Navbar;
+function mapStateToProps(state) {
+  return {
+    isLoggedIn: state.user.isLoggedIn,
+  };
+}
+
+export default connect(mapStateToProps)(Navbar);

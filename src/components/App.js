@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Navbar, Student, ProgressBar } from "../components";
+import { Navbar, Student, ProgressBar, SignUp, SignIn } from "../components";
 import { connect } from "react-redux";
 
 class App extends Component {
@@ -15,6 +15,8 @@ class App extends Component {
           {isLoading && <ProgressBar />}
           <Switch>
             <Route path="/student" component={Student} />
+            <Route path="/sign-up" component={SignUp} />
+            <Route path="/sign-in" component={SignIn} />
           </Switch>
         </div>
       </Router>
