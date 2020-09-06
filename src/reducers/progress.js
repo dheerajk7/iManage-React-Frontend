@@ -2,7 +2,7 @@ import { LOADING_START, LOADING_STOP } from "../actions/actionTypes";
 
 // loading reducer intial state to maintain loading progress bar
 const initialState = {
-  isLoading: false,
+  isLoading: true,
 };
 
 // changing store on the basis of different actions for loading progress bar
